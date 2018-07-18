@@ -1,0 +1,69 @@
+{% extends('@FfjvFo/layout.html.twig') %}
+{% trans_default_domain 'fo_security_login' %}
+
+{% block title %}{{ "fo.security.login.title"|trans }}{% endblock %}
+   {% block customCSS %}
+       {% stylesheets filter="scssphp" output="css/app.css"
+       "public/scss/core/core.scss"
+       "public/scss/Fo/Home/index.scss"
+       "public/scss/Fo/Security/register.scss"
+       %}
+       <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
+       {% endstylesheets %}
+   {% endblock %}
+{% block content %}
+    <div class="main-wrapper">
+        <h4 class="text-center">{{ block('title') }}</h4>
+        <div class="well col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 z-depth-1">
+            <div class="col-xs-12">
+                {% if error %}
+                    <div class="alert alert-danger">
+                        <strong>{{ "fo.security.login.login_failed"|trans }}</strong> {{ error.message}}
+                    </div>
+                {% endif %}
+                <form class="form-signin form-horizontal" role="form" action="{{ path('login_check') }}" method="post">
+                    <div class="form-group">
+                        <input type="text" name="_username" value="{{ last_username }}" class="form-control" placeholder="Entrer votre email" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="_password" class="form-control" placeholder="Entrer votre mot de passe" required>
+                    </div>
+                    <div class="form-group">
+                        <a href="#" class="pull-right" data-toggle="modal" data-target="#lostPassword">{{ "fo.security.login.password_forget"|trans }}</a>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-log-in"></span> {{ "fo.security.login.btn.login"|trans }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="lostPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{ "fo.security.login.password_forget"|trans }}</h4>
+                </div>
+
+                {{ form_start(emailForm, {'attr': {'class': 'form-horizontal'}}) }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        {{ form_label(emailForm.email, null, { 'label_attr': {'class': 'control-label col-sm-2'} }) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(emailForm.email) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default pull-left" data-dismiss="modal">{{ "fo.security.login.modal.btn.cancel"|trans }}</a>
+                    {{ form_widget(emailForm.submit) }}
+                </div>
+                {{ form_end(emailForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

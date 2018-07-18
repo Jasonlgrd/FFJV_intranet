@@ -1,0 +1,4 @@
+ffjv_webcomponent_index:
+    path:     /
+    defaults: { _controller: WebComponentBundle:index:index }
+    methods:  [GET, POST]

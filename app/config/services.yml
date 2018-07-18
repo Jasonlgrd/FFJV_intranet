@@ -1,0 +1,56 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.twig_extension:
+        class: AppBundle\Twig\AppExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+    permissions:
+        class: AppBundle\Service\AclService
+        arguments: ["@security.acl.provider"]
+    weezeventApi:
+        class: AppBundle\Service\WeezeventApi
+        arguments: ["@app_service"]
+    app_service:
+        class: FfjvBoBundle\Service\AppService
+        arguments: ["%secret%"]
+    evenements:
+        class: FfjvBoBundle\Service\Entity\EvenementsService
+        arguments: ["@doctrine.orm.default_entity_manager", "@request_stack", "@weezeventapi"]
+    clubs:
+        class: FfjvBoBundle\Service\Entity\ClubsService
+        arguments: ["@doctrine.orm.default_entity_manager", "@request_stack"]
+    teams:
+        class: FfjvBoBundle\Service\Entity\TeamsService
+        arguments: ["@doctrine.orm.default_entity_manager", "@request_stack"]
+    user:
+        class: FfjvBoBundle\Service\Entity\UserService
+        arguments: ["@doctrine.orm.default_entity_manager", "@request_stack"]
+    user_has_teams:
+        class: FfjvBoBundle\Service\Entity\UserHasTeams
+        arguments: ["@doctrine.orm.default_entity_manager", "@request_stack"]
+    user_has_clubs:
+        class: FfjvBoBundle\Service\Entity\UserHasClubs
+        arguments: ["@doctrine.orm.default_entity_manager", "@request_stack", "@service_container"]
+    licences_teams:
+        class: FfjvBoBundle\Service\Entity\LicencesTeamsService
+        arguments: ["@doctrine.orm.default_entity_manager", "@request_stack"]
+    licences_clubs:
+        class: FfjvBoBundle\Service\Entity\LicencesClubsService
+        arguments: ["@doctrine.orm.default_entity_manager", "@request_stack"]
+    licences_users:
+        class: FfjvBoBundle\Service\Entity\LicencesUsersService
+        arguments: ["@doctrine.orm.default_entity_manager", "@request_stack"]
+    messages:
+        class: FfjvBoBundle\Service\Entity\MessagesServices
+        arguments: ["@doctrine.orm.default_entity_manager", "@request_stack"]
+    contact:
+        class: FfjvBoBundle\Service\ContactService
+        arguments: ["@doctrine.orm.default_entity_manager", "@request_stack", "@service_container" ]

@@ -1,0 +1,29 @@
+parameters:
+    path_lib: "public/lib/"
+    path_component: "public/components/"
+    component_array:
+        proto-element:
+            - "polymer/polymer.html"
+            - "paper-material/paper-material.html"
+        tabs-element:
+            - "polymer/polymer.html"
+            - "iron-pages/iron-pages.html"
+            - "iron-ajax/iron-ajax.html"
+            - "paper-tabs/paper-tabs.html"
+            - "paper-tabs/paper-tab.html"
+        toast-element:
+            - "polymer/polymer.html"
+            - "paper-toast/paper-toast.html"
+        table-element:
+            - "polymer/polymer.html"
+            - "aha-table/dist/aha-table.html"
+services:
+    web.component.twig_extension:
+        class: WebComponentBundle\Twig\WebComponentTwigExtension
+        public: false
+        arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }
+    web_component:
+        class: WebComponentBundle\Service\WebComponentService
+        arguments: ["@service_container", "@assets.packages", "%path_lib%", "%path_component%", "%component_array%"]

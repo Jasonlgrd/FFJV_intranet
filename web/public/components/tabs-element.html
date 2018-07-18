@@ -1,0 +1,88 @@
+<dom-module id="tabs-element">
+    <template>
+        <iron-ajax
+                id="addRequest"
+                headers='{"X-Requested-With": "XMLHttpRequest"}'
+                handleAs="json"
+                content-type="application/json"
+                on-response="handleResponse"></iron-ajax>
+        <div class$="{{tabs_theme}}">
+            <paper-tabs selected="{{selected}}" noink="true" no-slide="true" align-bottom>
+                <template is="dom-repeat" items="{{tabs}}">
+                    <paper-tab class="tab-nav" on-tap="handleTab">
+                        <a href="#" tabindex="-1">{{item.title}}</a>
+                    </paper-tab>
+                </template>
+            </paper-tabs>
+            <iron-pages selected="{{selected}}">
+                <template is="dom-repeat" items="{{tabs}}">
+                    <div id$="tabs{{item.id}}" class="tab-body">
+                        <div class="spinner-default"></div>
+                    </div>
+                </template>
+            </iron-pages>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "tabs-element",
+            properties: {
+                tabs: {
+                    type: Array,
+                    value: [
+                        {id:"event", title:"Evenement", url: "", template:false},
+                        {id:"member", title:"Membre", url: "", template:false},
+                        {id:"setting", title:"Setting", url: "", template:false},
+                        {id:"about", title:"Club", url: "", template:false},
+                    ]
+                },
+                tabs_theme:{
+                    type: String,
+                    value: 'tabs tabs-primary'
+                },
+                request_url: {
+                    type: String,
+                    value: ''
+                },
+                selected: {
+                    type: Number,
+                    value: 0
+                }
+            },
+            ready: function(){
+                var item = this.tabs[this.selected];
+                if(item.template == false) {
+                    this.launchRequest(item);
+                } else {
+                    this.insertTemplate(item, item.template);
+                }
+            },
+            handleTab: function(e){
+                e.preventDefault();
+                var model = e.model;
+                this.launchRequest(model.item)
+            },
+            launchRequest: function(item){
+                if(item.template == false && item.url != ""){
+                    var indexOf = this.tabs.indexOf(item);
+                    this.indexOfItem = indexOf;
+                    this.$.addRequest.body = item;
+                    this.$.addRequest.url = item.url;
+                    this.$.addRequest.method = 'POST';
+                    this.$.addRequest.generateRequest();
+                }
+            },
+            handleResponse: function (e, request) {
+                var response = request.xhr.response;
+                if(response.template != undefined){
+                    this.insertTemplate(response.item, response.template)
+                }
+            },
+            insertTemplate: function(item, template){
+                var elem = this.$$("#tabs"+item.id);
+                elem.innerHTML = template;
+                this.set('tabs.'+this.indexOfItem+'.template', true);
+            }
+        });
+    </script>
+</dom-module>

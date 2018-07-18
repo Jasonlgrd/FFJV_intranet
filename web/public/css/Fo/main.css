@@ -1,0 +1,19 @@
+nav{
+    background-color: #223741!important;
+    font-size: 10px;
+}
+.navbar-fixed-top .navbar-nav>li{
+    font-size: 15px;
+}
+
+nav a{
+    color: #ffffff!important;
+}
+
+nav .dropdown-menu a {
+    color: #000000!important;
+}
+
+.main-wrapper{
+    margin-top: 75px;
+}

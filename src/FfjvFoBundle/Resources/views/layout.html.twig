@@ -1,0 +1,55 @@
+{% extends('::base.html.twig') %}
+{% block title %}FFJV - Intranet{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/mdb.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/app_main_2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('lib/noty/css/animate.css') }}">
+    {% stylesheets filter="scssphp" output="css/app.css"
+    "public/scss/core/core.scss"
+    "public/scss/Fo/main.scss"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
+    {% endstylesheets %}
+    {% block customCSS %}{% endblock %}
+{% endblock %}
+{% block javascripts %}
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('lib/noty/js/noty/packaged/jquery.noty.packaged.min.js') }}"></script>
+    {% block customJS %}{% endblock %}
+    {% include '@FfjvBo/Message/message.html.twig' %}
+{% endblock %}
+{% block body %}
+    {% block navbar %}
+        {{ include('@FfjvFo/Navbar/navbar.html.twig') }}
+    {% endblock %}
+
+    {% block header %}
+
+    {% endblock %}
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    {% block footer %}
+
+    {% endblock %}
+    {% block adminTools %}
+        {% if adminTools is defined %}
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+                <a class="btn-tools btn btn-warning" data-url="" href="{{ adminTools }}"><span class="glyphicon glyphicon-pencil"></span></a>
+            {% endif %}
+        {% endif %}
+    {% endblock %}
+{% endblock %}

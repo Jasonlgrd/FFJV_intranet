@@ -1,0 +1,158 @@
+{% extends('::base.html.twig') %}
+{% block title %}FFJV - Intranet{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/lib/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/lib/dist/css/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('lib/noty/css/animate.css') }}">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {% stylesheets filter="scssphp" output="css/app.css"
+    "public/scss/core/core.scss"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
+    {% endstylesheets %}
+    {% block customCSS %}{% endblock %}
+{% endblock %}
+{% block javascripts %}
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('public/lib/fastclick/fastclick.min.js') }}"></script>
+    <script src="{{ asset('public/lib/dist/js/app.min.js') }}"></script>
+    <script src="{{ asset('public/lib/sparkline/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('public/lib/slimScroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('public/lib/chartjs/Chart.min.js') }}"></script>
+    <script src="{{ asset('lib/noty/js/noty/packaged/jquery.noty.packaged.min.js') }}"></script>
+    {% block customJS %}{% endblock %}
+    {% include '@FfjvBo/Message/message.html.twig' %}
+{% endblock %}
+{% block classbody %}hold-transition skin-blue-light sidebar-mini{% endblock %}
+{% block body %}
+    <div class="wrapper">
+    <header class="main-header">
+        {% block header %}
+            {# ***** LOGO ***** #}
+            <a href="{{ path('ffjv_fo_home_index') }}" class="logo">
+                <span class="logo-mini"><b>FF</b>JV</span>
+                <span class="logo-lg"><b>Intranet</b>-FFjv</span>
+            </a>
+            {# ***** ./LOGO ***** #}
+            {% block navbar %}
+                {{ include('@FfjvFo/Navbar/navbarManager.html.twig') }}
+            {% endblock %}
+        {% endblock %}
+    </header>
+    <aside class="main-sidebar">
+        {% block aside %}
+            {{ include('@FfjvFo/Navbar/aside.html.twig') }}
+        {% endblock %}
+    </aside>
+    <div class="content-wrapper">
+        <section class="content-header">
+            {% block breadcrumb %}
+
+            {% endblock %}
+        </section>
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    {% block footer %}
+        <footer class="main-footer">
+            <div class="pull-left hidden-xs">
+                <p><b>Version</b> 0.9 Copyright © 2016 <a href="http://www.ffjv.org/">FFJV</a></p>
+            </div>
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+                <a class="col-xs-4 col-xs-offset-4" href="{{ path('ffjv_bo_home_index') }}"><span class="glyphicon glyphicon-cog"></span> Administration</a>
+            {% endif %}
+            <div class="pull-right hidden-xs">
+                <p><a data-toggle="modal" data-target="#footer_cgu">Conditions Générales d'Utilisation</a></p>
+            </div>
+            <div class="modal fade" id="footer_cgu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Conditions général d'utilisation</h4>
+                        </div>
+                        <div class="modal-body ">
+                            <p>Mentions légales - Conditions Générales d&#39;utilisation</p>
+                            <p>Conformément aux dispositions des articles 6-III et 19 de la loi pour la Confiance dans l&#39;Économie Numérique, nous vous informons que :</p><br />
+
+
+                            <p>Le présent site web est édité par :</p>
+                            <p><strong>Fédération Française de Jeu Vidéo</strong></p>
+                            <p>134, Rue Nationale<br />
+                                78970 MEZIERES SUR SEINE<br />
+                                Adresse de courrier électronique : contact@ffjv.org<br />
+                                Tél. : (+33) 01 30 95 32 61</p><br />
+                            <p>Le directeur de la publication du Site est <strong>Monsieur FONTAINE</strong>, en qualité de Président de la Fédération Française de Jeu Vidéo.</p><br />
+                            <p>Le responsable du Site est <strong>Monsieur PLATEL</strong>, en qualité de Responsable de la CIEL (Commission Informatique et Logiciel).</p><br />
+                            <p>L&#39;utilisateur reconnaît avoir pris connaissance des présentes conditions d&#39;utilisation et s&#39;engage à les respecter. </p><br />
+                            <p>L&#39;utilisateur du site internet &quot;http://espace-membre.ffjv.org/&quot; reconnaît disposer de la compétence et des moyens nécessaires pour accéder et utiliser ce site.<p><br />
+                            <p>L&#39;utilisateur du site internet &quot;http://espace-membre.ffjv.org/&quot; reconnaît avoir vérifié que la configuration informatique utilisée ne contient aucun virus et qu&#39;elle est en parfait état de fonctionnement.</p><br />
+                            <p>La FÉDÉRATION FRANÇAISE DE JEU VIDEO met tout en œuvre pour offrir aux utilisateurs des informations et/ou des outils disponibles et vérifiés mais ne saurait être tenue pour responsable des erreurs, d&#39;une absence de disponibilité des fonctionnalités et/ou de la présence de virus sur son site.</p><br />
+                            <p>Les informations fournies par la FÉDÉRATION FRANÇAISE DE JEU VIDEO le sont à titre indicatif et ne sauraient dispenser l&#39;utilisateur d&#39;une analyse complémentaire et personnalisée.<p><br />
+                            <p>La FÉDÉRATION FRANÇAISE DE JEU VIDEO ne saurait garantir l&#39;exactitude, la complétude, l&#39;actualité des informations diffusées sur son site.</p><br />
+                            <p>La FÉDÉRATION FRANÇAISE DE JEU VIDEO respecte notamment les obligations légales de déclaration du fichier de base de données applicables dans tous les pays des destinataires de ses envois. En particulier pour les envois à destination de la France, elle a procédé à une déclaration du fichier. Vous pouvez vous désabonner à tous moment en cliquant sur le lien destiné à cette demande, dans votre interface personnel.</p><br />
+                            <p>En conséquence, l&#39;utilisateur reconnaît utiliser ces informations sous sa responsabilité exclusive.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+    {% endblock %}
+    </div>{# ***** ./wrapper ***** #}
+    {% block adminTools %}
+        {% if adminTools is defined %}
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+                <a class="btn-tools btn btn-warning" data-url="" href="{{ adminTools }}"><span class="glyphicon glyphicon-pencil"></span></a>
+            {% endif %}
+        {% endif %}
+    {% endblock %}
+    <script>
+        var ffjv = {
+          Translate: {
+              dataTable: {
+                  processing:     "{{"fo.global.datatable.language.processing"|trans }}",
+                  search:         "{{"fo.global.datatable.language.search"|trans }}",
+                  lengthMenu:    "{{"fo.global.datatable.language.lengthmenu"|trans }}",
+                  info:           "{{"fo.global.datatable.language.info"|trans }}",
+                  infoEmpty:      "{{"fo.global.datatable.language.infoEmpty"|trans }}",
+                  infoFiltered:   "{{"fo.global.datatable.language.infoFiltered"|trans }}",
+                  infoPostFix:    "{{"fo.global.datatable.language.infoPostFix"|trans }}",
+                  loadingRecords: "{{"fo.global.datatable.language.loadingRecords"|trans }}",
+                  zeroRecords:    "{{"fo.global.datatable.language.zeroRecords"|trans }}",
+                  emptyTable:     "{{"fo.global.datatable.language.emptyTable"|trans }}",
+                  paginate: {
+                      first:      "{{"fo.global.datatable.language.paginate.first"|trans }}",
+                      previous:   "{{"fo.global.datatable.language.paginate.previous"|trans }}",
+                      next:       "{{"fo.global.datatable.language.paginate.next"|trans }}",
+                      last:       "{{"fo.global.datatable.language.paginate.last"|trans }}"
+                  },
+                  aria: {
+                      sortAscending:  "{{"fo.global.datatable.language.aria.sortAscending"|trans }}",
+                      sortDescending: "{{"fo.global.datatable.language.aria.sortDescending"|trans }}"
+                  }
+              }
+          }
+        };
+    </script>
+{% endblock %}

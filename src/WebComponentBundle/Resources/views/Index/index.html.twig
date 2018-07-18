@@ -1,0 +1,11 @@
+{% extends('WebComponentBundle::layout.html.twig') %}
+{% block customCSS %}
+
+{% endblock %}
+{% block webComponent %}
+    {{ webComponent(['table-element'])|raw }}
+{% endblock %}
+
+{% block content %}
+  <table-element theming="table table-bordered table-striped"></table-element>
+{% endblock %}

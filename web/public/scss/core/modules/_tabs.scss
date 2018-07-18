@@ -1,0 +1,13 @@
+@import "mixins/tabs";
+.tabs{
+  @include various-tabs();
+}
+.tabs-primary{
+  @include various-themes-tabs($primary-color);
+}
+.tabs-info{
+  @include various-themes-tabs($info-color);
+}
+.tabs-danger{
+  @include various-themes-tabs($danger-color);
+}

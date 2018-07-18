@@ -1,0 +1,32 @@
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                {% for error in errors %}
+                    <p><i class="icon fa fa-ban"></i>{{ error.message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{% block choice_widget_expanded %}
+    <div {{ block('widget_container_attributes') }}>
+        <div class="row">
+            {% for child in form %}
+                <div class="check_roles">
+                    <div class="col-sm-2">
+                        {{ form_widget(child) }}
+                    </div>
+                    <div class="col-sm-10">
+                        {{ form_label(child, null, {translation_domain: choice_translation_domain})|upper|raw }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock choice_widget_expanded %}
+{% block checkbox_widget %}
+    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+{% endblock checkbox_widget %}
